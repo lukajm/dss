@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>Login</title>
+
+    <!--CSS link-->
+    <link rel="stylesheet" href="Stylesheet.css">
+</head>
+<body>
+    <div class="container">
+        <!--Fixed position top nav bar-->
+        <div class="navbar">
+            <a href="home.html"><img src="New_Logo_Audiophiles.png" class ="logo" width="150px"></a>
+            <nav>
+                <ul>
+                    <li> <a href="/">Home</a> </li>
+                    <li> <a href="/users/login">Login</a> </li>
+                    <li> <a href="/users/register">Register</a> </li>
+                </ul>
+            </nav>
+        </div>
+        <!--Login form-->       
+        <form action="/users/login" method="POST">
+            <h1>Login</h1>
+
+            <ul>
+                <% if (messages.success_msg) { %>
+                    <li><%= messages.success_msg %></li>
+                <% } %>
+            </ul>
+
+            <ul>
+                <% if (messages.error) { %>
+                    <li><%= messages.error%></li>
+                <% } %>
+            </ul>
+
+                <div>
+                    <label for="email">Email</label>
+                    <input type="text" id="email" name="email" placeholder="Enter your username" required>
+                 </div>
+
+                <div>
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                </div>
+                
+                <div>
+                    <input type="submit" value="Login">
+                </div>
+                    
+            <!--Forgot password link-->
+            <div class="forgot-psw">
+                <span class="psw">
+                    Forgot <a href="/users/reset-password">password?</a>
+                </span>
+            </div>
+
+            <!--Register here link-->
+            <div class="login-signup">
+                <span class="text">Don't have an account?
+                    <a href="/users/register" class="text login-link">Register here</a>
+                </span>
+            </div>
+        <form>
+    <div>
+</body>
+</html>

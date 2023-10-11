@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Verify OTP</title>
+
+    <!--CSS link-->
+    <link rel="stylesheet" href="Stylesheet.css">
+</head>
+<body>
+    <div class="container">
+        <!--Fixed position top nav bar-->
+        <div class="navbar">
+            <a href="home.html"><img src="New_Logo_Audiophiles.png" class ="logo" width="150px"></a>
+            <nav>
+                <ul>
+                    <li> <a href="/">Home</a> </li>
+                    <li> <a href="/users/login">Login</a> </li>
+                    <li> <a href="/users/register">Register</a> </li>
+                </ul>
+            </nav>
+        </div>
+        <!--Verify OTP form-->
+        <form action="/users/verify-otp" method="POST">
+            <h1>Verify OTP</h1>
+
+            <ul>
+                <% if (messages.error_msg) { %>
+                    <li><%= messages.error_msg %></li>
+                <% } %>
+            </ul>
+
+            <div>
+                <label for="otp">OTP</label>
+                <input type="text" id="otp" name="otp" placeholder="Enter your OTP" required>
+            </div>
+
+            <div>
+                <input type="submit" value="Verify">
+            </div>
+        </form>
+    </div>
+</body>
+</html>

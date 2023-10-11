@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>Posts</title>
+     <!--Icon link -->
+     <link rel = "icon" href = "AP_Logo2_new.png" type = "image/x-icon">
+    <!--CSS link-->
+    <link rel="stylesheet" type="text/css" href="Stylesheet.css">
+    <script src="app.js"> 
+        // CSRF token for non-form request
+        const csrfToken = '<%= csrfToken %>'
+    </script>
+    <script src="script.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!--Fixed position top nav bar-->
+        <div class="navbar">
+            <a href="Index.html"><img src="New_Logo_Audiophiles.png" class ="logo" width="150px"></a>
+            <nav>
+                <ul>
+                    <li> <a href="/browse">Browse</a></li>
+                    <li> <a href="/posts">Posts</a></li>
+                    <li> <a href="" id="logout">Logout</a> </li>
+                </ul>
+            </nav>
+        </div>
+        <!-- Tabs -->
+        <div class="tab">
+            <button class="tablinks" onclick="openTab(event, 'Create')">Create</button>
+            <button class="tablinks" onclick="openTab(event, 'Manage')">Manage</button>
+        </div>
+    
+        <!-- Tab content -->
+        <div id="Create" class="tabcontent">
+            <form action="/formPost" method="post" id="createPostForm">
+                 <!-- CSRF Token -->
+                 <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <h1 id="create-header">Create a new post:</h1>
+                <label for="title">Title:</label>
+                <input  id="title" type="input" name="title">
+                <label for="content">Content:</label>
+                <textarea id="content"  type="textarea" name="content" ></textarea>
+        
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    
+        <div id="Manage" class="tabcontent">
+                <h1 id="manage-header">Manage your posts:</h1>
+                <main>
+                    <!--EJS built-in output encoding-->
+                    <% posts.forEach(post => { %>
+                        <div id="post-<%= post.id %>" class="card-manage">
+                          <div class="caption-manage">
+                            <p class="title-manage"><%= post.title %></p>
+                            <p class="content-manage"><%= post.content %></p>
+                          </div> 
+                          <button onclick="editPost('<%= post.id %>')" id="edit">Edit</button>
+                          <button onclick="removePost('<%= post.id %>')" id="delete">Remove</button>
+                        </div>
+                      <% }) %>
+                </main>
+        </div>
+</div>
+</body>
+</html>

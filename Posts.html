@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>Posts</title>
+     <!--Icon link -->
+     <link rel = "icon" href = "AP_Logo2_new.png" type = "image/x-icon">
+    <!--CSS link-->
+    <link rel="stylesheet" type="text/css" href="Stylesheet.css">
+</head>
+<body>
+    <div class="container">
+        <!--Fixed position top nav bar-->
+        <div class="navbar">
+            <a href="Index.html"><img src="New_Logo_Audiophiles.png" class ="logo" width="150px"></a>
+            <nav>
+                <ul>
+                    <li> <a href="/browse">Browse</a></li>
+                    <li> <a href="/posts">Posts</a></li>
+                    <li> <a href="" id="logout">Logout</a> </li>
+                </ul>
+            </nav>
+        </div>
+        <!-- Tabs -->
+        <div class="tab">
+            <button class="tablinks" onclick="openTab(event, 'Create')">Create</button>
+            <button class="tablinks" onclick="openTab(event, 'Manage')">Manage</button>
+        </div>
+    
+        <!-- Tab content -->
+        <div id="Create" class="tabcontent">
+            <form action="/formPost", method="post", id="createPostForm">
+                <h1 id="create-header">Create a new post:</h1>
+                <label for="title">Title:</label>
+                <input type="text" id="title" name="title" required>
+        
+                <label for="content">Content:</label>
+                <textarea id="content" name="content" required></textarea>
+        
+                <label for="image">Add attachment:</label>
+                <input type="file" id="image" name="image" accept="image/*" required>
+        
+                <button type="submit" onclick="createPost">Submit</button>
+            </form>
+        </div>
+    
+        <div id="Manage" class="tabcontent">
+                <h1 id="manage-header">Manage your posts:</h1>
+                <main>
+                    <div class="card-manage">
+                        <div class="image-manage">
+                        <img src="Pics2.png" alt="Avatar" style="width:100%">
+                        </div>
+                        <div class="caption-manage">
+                        <p class="title-manage">The title goes here</p>
+                        <p class="content-manage">Content goes here and here and here and here and here and here and here.</p>
+                        </div>
+                        <button id="edit" onclick="editPost(postId)">Edit</button>
+                        <button id="delete" onclick="removePost(postId)">Delete</button>
+                    </div>
+                </main>
+        </div>
+    <script>
+        window.addEventListener('DOMContentLoaded', function() {
+        // Call the openTab function with the desired tab name
+        openTab(null, 'Create');
+        });
+
+            //Functon for tabs in "Posts" page ---
+        function openTab(evt, tabName) {
+            // Declare all variables
+            var i, tabcontent, tablinks;
+
+        
+            // Get all elements with class="tabcontent" and hide them
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+
+            }
+        
+            // Get all elements with class="tablinks" and remove the class "active"
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+        
+            // Show the current tab, and add an "active" class to the button that opened the tab
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        };
+        
+        function editPost(postId) {
+            // Retrieve the updated post data from the form
+            const title = document.getElementById('title').value;
+            const content = document.getElementById('content').value;
+            const image = document.getElementById('image').value;
+
+            const updatedPost = {
+                title: title,
+                content: content,
+                image: image
+            };
+
+            fetch(`/posts/${postId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(updatedPost)
+            })
+                .then(response => {
+                    if (response.ok) {
+                        console.log('Post updated successfully');
+                    } else {
+                        console.error('Failed to update post:', response.status);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error updating post:', error);
+                });
+        }
+
+        // Remove post 
+        function removePost(postId) {
+        // Send delete request to remove the post
+        fetch(`/posts/${postId}`, {
+            method: 'delete'
+        })
+            .then(response => {
+            if (response.ok) {
+                console.log('Post deleted successfully')
+            } else {
+                console.error('Failed to remove post:', response.status);
+            }
+            })
+            .catch(error => {
+            console.error('Error removing post:', error);
+            });
+        };
+        </script>
+        </script>
+<script src="server.js"></script>
+</div>
+</body>
+</html>

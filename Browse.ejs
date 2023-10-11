@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>Browse</title>
+     <!--Icon link -->
+     <link rel = "icon" href = "AP_Logo2_new.png" type = "image/x-icon">
+    <!--CSS link-->
+    <link rel="stylesheet" href="Stylesheet.css">
+</head>
+<body>
+    <div class="container">
+        <!--Fixed position top nav bar-->
+        <div class="navbar">
+            <a href="Index.html"><img src="New_Logo_Audiophiles.png" class ="logo" width="150px"></a>
+            <nav>
+                <ul>
+                    <li> <a href="/browse">Browse</a></li>
+                    <li> <a href="/posts">Posts</a></li>
+                    <li> <a href="" id="logout">Logout</a> </li>
+                </ul>
+            </nav>
+        </div>
+        
+        <!-- Search bar --> 
+        <form action="/browse" method="get" id="browsePost">
+            <div class="search__container" id="search-container">
+                <input class="search__input" type="text" placeholder="Browse new posts..." id="search-input" name="query">
+                <button type="submit">Search</button>
+            </div>
+        </form>
+
+        <!-- Posts -->
+        <main id="mainContent">
+            <!--EJS built-in output encoding-->
+            <% posts.forEach(post => { %>
+                <div class="card">
+                  <div class="caption">
+                    <p class="title"><%= post.title %></p>
+                    <p class="content"><%= post.content %></p>
+                  </div> 
+                </div>
+              <% }) %>
+        </main>
+
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
